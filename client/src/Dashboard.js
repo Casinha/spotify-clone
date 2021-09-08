@@ -59,7 +59,7 @@ export default function Dashboard({ code }) {
         }, 200)
 
         return () => clearTimeout(searchDelay)
-    }, [search])
+    }, [search, accessToken])
 
     return (
         <div>

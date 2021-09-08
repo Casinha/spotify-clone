@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import useAuth from './useAuth'
 import SpotifyPlayer from 'react-spotify-web-playback'
 
 export default function Player({ accessToken, trackUri }) {
