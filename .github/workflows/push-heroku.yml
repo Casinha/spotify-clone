@@ -43,7 +43,7 @@ jobs:
           npm run build
 
       - name: Push Client to Heroku
-        uses: jctaveras/heroku-deploy@1.0.0
+        uses: jctaveras/heroku-deploy@v2.1.3
         with:
           email: ${{secrets.HEROKU_USERNAME}}
           api_key: ${{secrets.HEROKU_API_KEY}}
