@@ -32,7 +32,7 @@ jobs:
       - name: Build Backend
         working-directory: ./backend
         run: |
-          npm install --prod
+          npm install
           tsc
       
       - name: Push Backend to Heroku

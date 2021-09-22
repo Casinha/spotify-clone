@@ -32,7 +32,6 @@ app.post('/refresh', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    console.log(`Login Requested`)
     const code = req.body.code;
 
     const spotifyApi = new SpotifyWebApi({
