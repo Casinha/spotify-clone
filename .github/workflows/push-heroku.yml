@@ -25,7 +25,6 @@ jobs:
 
       - name: Install Global Packages
         run: |
-          npm install -g @angular/cli
           npm install -g node-pre-gyp
           npm install -g typescript@3.8.3
 
@@ -46,8 +45,7 @@ jobs:
       - name: Build Client
         working-directory: ./client
         run: |
-          npm install --prod
-          npm install typescript@3.8.3
+          npm install
           npm run build
 
       - name: Push Client to Heroku
