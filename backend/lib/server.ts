@@ -10,13 +10,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+console.log(process.env)
+
+const redirectUri = process.env.NODE_ENV === 'prod'
+    ? `https://wyn-spotify-clone.herokuapp.com/`
+    : `http://${process.env.HOST_NAME}:4200`
+
+app.get('/testenv', (req, res)=>{
+    res.json(process.env)
+})
+
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken;
 
     const spotifyApi = new SpotifyWebApi({
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_SECRET,
-        redirectUri: `http://${process.env.HOST_NAME}:4200`,
+        redirectUri: redirectUri,
         refreshToken
     })
 
@@ -37,7 +47,7 @@ app.post('/login', (req, res) => {
     const spotifyApi = new SpotifyWebApi({
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_SECRET,
-        redirectUri: `http://${process.env.HOST_NAME}:4200`
+        redirectUri: redirectUri
     })
 
     spotifyApi.authorizationCodeGrant(code).then(data => {
