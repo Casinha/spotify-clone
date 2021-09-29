@@ -31,11 +31,13 @@ jobs:
       - name: Build and Push Backend
         working-directory: ./backend
         run: |
+          npm install
           npm run build-aws
           npm run push-aws
 
       - name: Build and Push Client
         working-directory: ./client
         run: |
+          npm install
           npm run build-aws
           npm run push-aws

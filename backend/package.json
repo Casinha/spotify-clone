@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "build-aws": "tsc && npm install && docker build -t 263361087275.dkr.ecr.eu-west-2.amazonaws.com/spotify-clone:backend-latest .",
+    "build-aws": "tsc && docker build -t 263361087275.dkr.ecr.eu-west-2.amazonaws.com/spotify-clone:backend-latest .",
     "push-aws": "docker push 263361087275.dkr.ecr.eu-west-2.amazonaws.com/spotify-clone:backend-latest",
     "build-push": "npm run build-aws && npm run push-aws",
     "test": "echo \"Error: no test specified\" && exit 1"
