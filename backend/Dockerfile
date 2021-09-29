@@ -1,6 +1,5 @@
 FROM node:14.16.0-alpine3.12
 
-ENV PORT 3000
 EXPOSE 3000
 
 WORKDIR /app
@@ -20,4 +19,4 @@ RUN mkdir -p ./node_modules
 
 COPY ./dist ./dist
 
-CMD node --max-old-space-size=8192 --expose-gc dist/server.js
+CMD node dist/server.js
