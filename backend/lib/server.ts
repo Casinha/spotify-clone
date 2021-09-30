@@ -1,32 +1,30 @@
-import express from "express";
-import cors from "cors";
-import SpotifyWebApi from "spotify-web-api-node";
+import express from "express"
+import cors from "cors"
+import SpotifyWebApi from "spotify-web-api-node"
 const lyricsFinder = require("../node_modules/lyrics-finder/src/index.js")
-require("dotenv").config();
+require("dotenv").config()
 
-const app = express();
+const app = express()
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 console.log(process.env)
 
-const redirectUri = process.env.NODE_ENV === 'prod'
-    ? `https://wyn-spotify-clone.herokuapp.com/`
-    : `http://${process.env.HOST_NAME}:4200`
+const redirectUri = `http://${process.env.HOST_NAME}:4200`
 
 app.get('/testenv', (req, res)=>{
     res.json(process.env)
 })
 
 app.post('/refresh', (req, res) => {
-    const refreshToken = req.body.refreshToken;
+    const refreshToken = req.body.refreshToken
 
     const spotifyApi = new SpotifyWebApi({
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_SECRET,
-        redirectUri: redirectUri,
+        redirectUri: req.body.redirectUri,
         refreshToken
     })
 
@@ -38,16 +36,16 @@ app.post('/refresh', (req, res) => {
     }).catch(err => {
         console.error(err)
         res.sendStatus(400)
-    });
+    })
 })
 
 app.post('/login', (req, res) => {
-    const code = req.body.code;
+    const code = req.body.code
 
     const spotifyApi = new SpotifyWebApi({
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_SECRET,
-        redirectUri: redirectUri
+        redirectUri: req.body.redirectUri
     })
 
     spotifyApi.authorizationCodeGrant(code).then(data => {
@@ -71,6 +69,6 @@ app.get('/lyrics', async (req, res) => {
     res.json({ lyrics })
 })
 
-app.listen(process.env.HOST_PORT, () => {
+app.listen(process.env.HOST_PORT || 3000, () => {
     console.log(`Server listening on port ${process.env.HOST_PORT}`)
 })
