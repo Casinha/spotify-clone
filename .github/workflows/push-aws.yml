@@ -1,4 +1,4 @@
-name: Build and Push GCR
+name: Build and Push AWS
 on: [push]
 jobs:
   build-and-push-to-gcr:
