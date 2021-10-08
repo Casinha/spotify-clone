@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  backend:
+    image: 263361087275.dkr.ecr.eu-west-2.amazonaws.com/spotify-clone:backend-latest
+    ports:
+      - 3000:3000
+    environment:
+      - HOST_NAME=0.0.0.0
+      - HOST_PORT=3000
+      - SPOTIFY_CLIENT_ID=0ad91f9000364e4c8ca5d9f66b046075
+      - SPOTIFY_SECRET=849544b3535849bca8d8c3030d99f31d
+  client:
+    image: 263361087275.dkr.ecr.eu-west-2.amazonaws.com/spotify-clone:client-latest
+    ports:
+      - 8080:3000
+    environment:
+      - REACT_APP_SERVER_URL=http://localhost:3000
+    depends_on:
+      - backend
+    links:
+      - backend 

@@ -10,10 +10,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-console.log(process.env)
-
-const redirectUri = `http://${process.env.HOST_NAME}:4200`
-
 app.get('/testenv', (req, res)=>{
     res.json(process.env)
 })

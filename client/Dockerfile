@@ -1,10 +1,15 @@
-FROM nginx:alpine
+FROM node:14.16.0-alpine3.12
 
-ENV PORT=4200
-EXPOSE $PORT 80
+WORKDIR /app
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+ENV PATH /app/node_modules/.bin:$PATH
 
-WORKDIR /usr/share/nginx/html
+COPY package.json ./
+COPY package-lock.json ./
 
-COPY /build .
+RUN npm install --silent
+RUN npm install react-scripts -g --silent
+
+COPY . ./
+
+CMD ["npm", "start"]

@@ -10,7 +10,9 @@ export default function useAuth(code) {
     useEffect(() => {
         if (!code) return
 
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, { code }).then(response => {
+        const redirectUri = window.location.origin
+
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, { code, redirectUri }).then(response => {
             setAccessToken(response.data.accessToken)
             setRefreshToken(response.data.refreshToken)
             setExpiresIn(response.data.expiresIn)
@@ -24,8 +26,10 @@ export default function useAuth(code) {
     useEffect(() => {
         if (!(refreshToken && expiresIn)) return
 
+        const redirectUri = window.location.origin
+
         const refreshInterval = setInterval(() => {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/refresh`, { refreshToken }).then(response => {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/refresh`, { refreshToken, redirectUri }).then(response => {
                 setAccessToken(response.data.accessToken)
                 setExpiresIn(response.data.expiresIn)
             }).catch(err => {

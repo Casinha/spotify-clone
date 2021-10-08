@@ -26,7 +26,7 @@ export default function Dashboard({ code }) {
 
     useEffect(() => {
         if (!selectedTrack) return
-        axios.get(`http://localhost:3000/lyrics`, {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/lyrics`, {
             params: {
                 track: selectedTrack.name,
                 artist: selectedTrack.artist
